@@ -18,6 +18,7 @@ func _on_level_bomb_drilled():
 	$explosion.global_position = $driller.global_position
 	$explosion.visible = true
 	$explosion.emitting = true
+	$explosion/explosion.play()
 	$driller.visible = false
 	$gui/game_over.start()
 

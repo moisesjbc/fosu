@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://gameplay/level/level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://gameplay/driller/driller.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://gameplay/main/main.gd" type="Script" id=4]
 [ext_resource path="res://gameplay/gui/game_over/game_over.tscn" type="PackedScene" id=5]
 [ext_resource path="res://gameplay/driller/smoke_particle.png" type="Texture" id=6]
+[ext_resource path="res://gameplay/main/explosion.wav" type="AudioStream" id=7]
 
 [node name="main" type="Node2D"]
 script = ExtResource( 4 )
@@ -43,6 +44,9 @@ initial_velocity = 300.0
 radial_accel = 300.0
 radial_accel_random = 1.0
 color = Color( 0, 0, 0, 0.784314 )
+
+[node name="explosion" type="AudioStreamPlayer" parent="explosion"]
+stream = ExtResource( 7 )
 
 [connection signal="bomb_drilled" from="level" to="." method="_on_level_bomb_drilled"]
 [connection signal="row_drilled" from="level" to="." method="_on_level_row_drilled"]
