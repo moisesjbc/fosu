@@ -88,6 +88,7 @@ func move_row_right(row_index):
 
 
 func drill():
+	$drill.play()
 	create_new_row()
 
 	for row_index in range(FIRST_VISIBLE_ROW, LAST_VISIBLE_ROW + 1):
