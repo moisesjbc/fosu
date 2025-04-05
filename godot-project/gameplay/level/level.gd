@@ -17,9 +17,13 @@ const TILES_PER_ROW = 6
 var driller
 
 var special_cell_probability = 0.3
+var add_arrows_on_new_row = true
 
 
 signal bomb_drilled
+
+func _ready():
+	add_arrows_on_new_row = true
 
 
 func _input(event):
@@ -96,11 +100,12 @@ func create_new_row():
 			cell_value = BOMB_ID
 		set_cell(column_index, LAST_VISIBLE_ROW + 1, cell_value)
 
-	# Randomly add arrows
-	if randf() < 0.4:
+	# Add arrows (if applicable)
+	if add_arrows_on_new_row:
 		set_cell(FIRST_TILE_COLUMN - 1, LAST_VISIBLE_ROW + 1, LEFT_ARROW_ID)
 		set_cell(LAST_TILE_COLUMN + 1, LAST_VISIBLE_ROW + 1, RIGHT_ARROW_ID)
 	else:
 		set_cell(FIRST_TILE_COLUMN - 1, LAST_VISIBLE_ROW + 1, -1)
 		set_cell(LAST_TILE_COLUMN + 1, LAST_VISIBLE_ROW + 1, -1)
+	add_arrows_on_new_row = not add_arrows_on_new_row
 
