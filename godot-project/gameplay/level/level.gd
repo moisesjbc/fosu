@@ -52,6 +52,7 @@ func _input(event):
 			move_row_right(tilemap_pos.y)
 
 func move_row_left(row_index):
+	$arrow_pressed.play()
 	var first_tile = get_cell(FIRST_TILE_COLUMN, row_index)
 
 	for column_index in range(FIRST_TILE_COLUMN, LAST_TILE_COLUMN):
@@ -69,6 +70,7 @@ func move_row_left(row_index):
 
 
 func move_row_right(row_index):
+	$arrow_pressed.play()
 	var last_tile = get_cell(LAST_TILE_COLUMN, row_index)
 
 	var column_index = LAST_TILE_COLUMN
