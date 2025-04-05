@@ -17,5 +17,10 @@ position = Vector2( 472, 190 )
 
 [node name="game_over" parent="gui" instance=ExtResource( 5 )]
 
+[node name="difficulty_timer" type="Timer" parent="."]
+wait_time = 7.0
+autostart = true
+
 [connection signal="bomb_drilled" from="level" to="." method="_on_level_bomb_drilled"]
 [connection signal="block_drilled" from="driller" to="level" method="_on_driller_block_drilled"]
+[connection signal="timeout" from="difficulty_timer" to="." method="_on_difficulty_timer_timeout"]

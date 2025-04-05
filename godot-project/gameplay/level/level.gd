@@ -16,14 +16,23 @@ const TILES_PER_ROW = 6
 
 var driller
 
-var special_cell_probability = 0.3
-var add_arrows_on_new_row = true
+var special_cell_probability
+var drill_timeout
+
+var add_arrows_on_new_row
 
 
 signal bomb_drilled
 
-func _ready():
+
+func start(driller, drill_timeout, special_cell_probability):
 	add_arrows_on_new_row = true
+	
+	self.driller = driller
+	self.special_cell_probability = special_cell_probability
+	self.drill_timeout = drill_timeout
+
+	$drill_timer.start(drill_timeout)
 
 
 func _input(event):
@@ -71,11 +80,8 @@ func move_row_right(row_index):
 		else:
 			driller.translate(Vector2(-TILE_WIDTH * (TILES_PER_ROW - 1), 0))
 
-func _on_timer_timeout():
-	dig()
 
-
-func dig():
+func drill():
 	create_new_row()
 
 	for row_index in range(0, LAST_VISIBLE_ROW + 1):
@@ -87,10 +93,14 @@ func dig():
 	if driller_tile == BOMB_ID:
 		emit_signal("bomb_drilled")
 	set_cellv(driller_current_pos, -1)
+	
+	print("drill_timeout ", drill_timeout)
+	$drill_timer.start(drill_timeout)
 
 
 func create_new_row():
 	randomize()
+	print("special_cell_probability ", special_cell_probability)
 
 	# Randomly add dangers
 	var safe_column = FIRST_TILE_COLUMN + (randi() % (LAST_VISIBLE_ROW - FIRST_TILE_COLUMN))
@@ -109,3 +119,6 @@ func create_new_row():
 		set_cell(LAST_TILE_COLUMN + 1, LAST_VISIBLE_ROW + 1, -1)
 	add_arrows_on_new_row = not add_arrows_on_new_row
 
+
+func _on_drill_timer_timeout():
+	drill()
