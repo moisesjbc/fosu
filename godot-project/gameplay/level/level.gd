@@ -106,6 +106,7 @@ func drill():
 		else:
 			emit_signal("bomb_drilled")
 	elif driller_tile == SHIELD_ID:
+		$powerup.play()
 		driller.activate_shield()
 	set_cellv(driller_current_pos, -1)
 	
