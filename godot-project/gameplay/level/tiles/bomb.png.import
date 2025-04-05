@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/steel.png-0efd3ad1f473cf42b0a19036d7989e8c.stex"
+path="res://.import/bomb.png-d1b5cdd03dfcab25e67bef813c56bf13.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gameplay/level/tiles/steel.png"
-dest_files=[ "res://.import/steel.png-0efd3ad1f473cf42b0a19036d7989e8c.stex" ]
+source_file="res://gameplay/level/tiles/bomb.png"
+dest_files=[ "res://.import/bomb.png-d1b5cdd03dfcab25e67bef813c56bf13.stex" ]
 
 [params]
 
