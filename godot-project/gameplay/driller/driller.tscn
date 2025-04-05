@@ -1,11 +1,16 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://gameplay/driller/driller.png" type="Texture" id=1]
 [ext_resource path="res://gameplay/driller/driller.gd" type="Script" id=2]
 [ext_resource path="res://gameplay/driller/driller_shield.png" type="Texture" id=3]
+[ext_resource path="res://gameplay/driller/smoke_particle.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 36.5, 46 )
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0.173184, 1 )
+colors = PoolColorArray( 0.811765, 0.670588, 0.388235, 0.784314, 0.85098, 0.658824, 0.141176, 0.784314 )
 
 [node name="driller" type="KinematicBody2D"]
 collision_mask = 2
@@ -23,3 +28,16 @@ shape = SubResource( 1 )
 position = Vector2( 1, 0 )
 scale = Vector2( 1.1, 1.1 )
 texture = ExtResource( 3 )
+
+[node name="smoke" type="CPUParticles2D" parent="."]
+position = Vector2( 0, 48 )
+amount = 20
+lifetime = 1.5
+randomness = 0.5
+texture = ExtResource( 4 )
+emission_shape = 1
+emission_sphere_radius = 20.0
+spread = 0.0
+gravity = Vector2( 0, -98 )
+color = Color( 0.811765, 0.670588, 0.388235, 0.392157 )
+color_ramp = SubResource( 2 )
