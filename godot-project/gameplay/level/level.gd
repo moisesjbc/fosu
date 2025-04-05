@@ -16,6 +16,8 @@ const TILES_PER_ROW = 6
 
 var driller
 
+var special_cell_probability = 0.3
+
 
 signal bomb_drilled
 
@@ -24,8 +26,6 @@ func _input(event):
 	if event is InputEventMouseButton and event.pressed == false:
 		var tilemap_pos = world_to_map(get_global_mouse_position())
 		var clicked_tile = get_cellv(tilemap_pos)
-		print("tilemap_pos ", tilemap_pos)
-		print("clicked_tile ", clicked_tile)
 
 		if clicked_tile == LEFT_ARROW_ID:
 			move_row_left(tilemap_pos.y)
@@ -88,8 +88,13 @@ func dig():
 func create_new_row():
 	randomize()
 
+	# Randomly add dangers
+	var safe_column = FIRST_TILE_COLUMN + (randi() % (LAST_VISIBLE_ROW - FIRST_TILE_COLUMN))
 	for column_index in range(FIRST_TILE_COLUMN, LAST_TILE_COLUMN + 1):
-		set_cell(column_index, LAST_VISIBLE_ROW + 1, EARTH_ID)
+		var cell_value = EARTH_ID
+		if column_index != safe_column and randf() < special_cell_probability:
+			cell_value = BOMB_ID
+		set_cell(column_index, LAST_VISIBLE_ROW + 1, cell_value)
 
 	# Randomly add arrows
 	if randf() < 0.4:
@@ -98,3 +103,4 @@ func create_new_row():
 	else:
 		set_cell(FIRST_TILE_COLUMN - 1, LAST_VISIBLE_ROW + 1, -1)
 		set_cell(LAST_TILE_COLUMN + 1, LAST_VISIBLE_ROW + 1, -1)
+
