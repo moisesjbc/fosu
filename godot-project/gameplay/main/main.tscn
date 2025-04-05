@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://gameplay/level/level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://gameplay/driller/driller.tscn" type="PackedScene" id=2]
 [ext_resource path="res://gameplay/target_area/target_area.tscn" type="PackedScene" id=3]
 [ext_resource path="res://gameplay/main/main.gd" type="Script" id=4]
+[ext_resource path="res://gameplay/gui/game_over/game_over.tscn" type="PackedScene" id=5]
 
 [node name="main" type="Node2D"]
 script = ExtResource( 4 )
@@ -16,5 +17,10 @@ position = Vector2( 464, 190 )
 [node name="target_area" parent="." instance=ExtResource( 3 )]
 position = Vector2( 5, 1690 )
 
+[node name="gui" type="Node" parent="."]
+
+[node name="game_over" parent="gui" instance=ExtResource( 5 )]
+
+[connection signal="bomb_drilled" from="level" to="." method="_on_level_bomb_drilled"]
 [connection signal="block_drilled" from="driller" to="level" method="_on_driller_block_drilled"]
 [connection signal="driller_entered" from="target_area" to="." method="_on_target_area_driller_entered"]

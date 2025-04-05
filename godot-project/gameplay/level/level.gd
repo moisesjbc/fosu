@@ -3,6 +3,7 @@ extends Node2D
 
 const LEFT_ARROW_ID = 1
 const RIGHT_ARROW_ID = 2
+const BOMB_ID = 4
 
 const FIRST_TILE_COLUMN = 1
 const LAST_TILE_COLUMN = 6
@@ -13,10 +14,14 @@ const TILES_PER_ROW = 6
 var driller
 
 
+signal bomb_drilled
+
+
 func _input(event):
 	if event is InputEventMouseButton and event.pressed == false:
 		var tilemap_pos = $tilemap.world_to_map(get_global_mouse_position())
 		var clicked_tile = $tilemap.get_cellv(tilemap_pos)
+		print("clicked_tile ", clicked_tile)
 
 		if clicked_tile == LEFT_ARROW_ID:
 			move_row_left(tilemap_pos.y)
@@ -61,4 +66,7 @@ func move_row_right(row_index):
 
 func _on_driller_block_drilled(driller):
 	var tilemap_pos = $tilemap.world_to_map(driller.global_position)
+	var driller_tile = $tilemap.get_cellv(tilemap_pos)
+	if driller_tile == BOMB_ID:
+		emit_signal("bomb_drilled")
 	$tilemap.set_cellv(tilemap_pos, -1)
