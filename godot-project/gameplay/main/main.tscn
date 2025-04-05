@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://gameplay/level/level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://gameplay/driller/driller.tscn" type="PackedScene" id=2]
+[ext_resource path="res://gameplay/gui/score/score.tscn" type="PackedScene" id=3]
 [ext_resource path="res://gameplay/main/main.gd" type="Script" id=4]
 [ext_resource path="res://gameplay/gui/game_over/game_over.tscn" type="PackedScene" id=5]
 
@@ -17,10 +18,13 @@ position = Vector2( 472, 190 )
 
 [node name="game_over" parent="gui" instance=ExtResource( 5 )]
 
+[node name="score" parent="gui" instance=ExtResource( 3 )]
+
 [node name="difficulty_timer" type="Timer" parent="."]
 wait_time = 7.0
 autostart = true
 
 [connection signal="bomb_drilled" from="level" to="." method="_on_level_bomb_drilled"]
+[connection signal="row_drilled" from="level" to="." method="_on_level_row_drilled"]
 [connection signal="block_drilled" from="driller" to="level" method="_on_driller_block_drilled"]
 [connection signal="timeout" from="difficulty_timer" to="." method="_on_difficulty_timer_timeout"]

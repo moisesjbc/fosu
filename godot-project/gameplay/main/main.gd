@@ -18,3 +18,7 @@ func _on_level_bomb_drilled():
 func _on_difficulty_timer_timeout():
 	$level.drill_timeout -= DELTA_DRILL_TIMEOUT
 	$level.special_cell_probability += SPECIAL_CELL_PROBABILITY_DELTA
+
+
+func _on_level_row_drilled():
+	$gui/score.increase_score(1)

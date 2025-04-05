@@ -9,6 +9,7 @@ const BOMB_ID = 4
 const FIRST_TILE_COLUMN = 1
 const LAST_TILE_COLUMN = 6
 
+const FIRST_VISIBLE_ROW = 1
 const LAST_VISIBLE_ROW = 14
 
 const TILE_WIDTH = 128
@@ -23,6 +24,7 @@ var add_arrows_on_new_row
 
 
 signal bomb_drilled
+signal row_drilled
 
 
 func start(driller, drill_timeout, special_cell_probability):
@@ -84,12 +86,13 @@ func move_row_right(row_index):
 func drill():
 	create_new_row()
 
-	for row_index in range(0, LAST_VISIBLE_ROW + 1):
+	for row_index in range(FIRST_VISIBLE_ROW, LAST_VISIBLE_ROW + 1):
 		for column_index in range(FIRST_TILE_COLUMN - 2, LAST_TILE_COLUMN + 2):
 			set_cell(column_index, row_index, get_cell(column_index, row_index + 1))
 
 	var driller_current_pos = world_to_map(driller.global_position)
 	var driller_tile = get_cellv(driller_current_pos)
+	emit_signal("row_drilled")
 	if driller_tile == BOMB_ID:
 		emit_signal("bomb_drilled")
 	set_cellv(driller_current_pos, -1)
