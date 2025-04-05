@@ -36,3 +36,9 @@ func move_row_right(row_index):
 		column_index -= 1
 
 	$tilemap.set_cell(FIRST_TILE_COLUMN, row_index, last_tile)
+
+
+func _on_driller_block_drilled(driller):
+	var tilemap_pos = $tilemap.world_to_map(driller.global_position)
+	$tilemap.set_cellv(tilemap_pos, -1)
+	print("Driller at tile ", tilemap_pos)
