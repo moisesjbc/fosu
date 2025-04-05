@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://gameplay/level/tiles/earth.png" type="Texture" id=1]
 [ext_resource path="res://gameplay/level/tiles/right_arrow.png" type="Texture" id=2]
 [ext_resource path="res://gameplay/level/tiles/steel.png" type="Texture" id=3]
 [ext_resource path="res://gameplay/level/tiles/left_arrow.png" type="Texture" id=4]
+[ext_resource path="res://gameplay/level/level.gd" type="Script" id=5]
 
 [sub_resource type="TileSet" id=1]
 0/name = "earth.png 0"
@@ -65,6 +66,7 @@
 
 [node name="level" type="Node2D"]
 position = Vector2( 16, 0 )
+script = ExtResource( 5 )
 
 [node name="tilemap" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
