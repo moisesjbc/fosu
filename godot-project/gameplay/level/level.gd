@@ -3,7 +3,7 @@ extends TileMap
 
 const LEFT_ARROW_ID = 1
 const RIGHT_ARROW_ID = 2
-const EARTH_ID = 3
+const EARTH_ID = 0
 const BOMB_ID = 4
 
 const FIRST_TILE_COLUMN = 1
@@ -74,8 +74,8 @@ func _on_timer_timeout():
 func dig():
 	create_new_row()
 
-	for row_index in range(0, LAST_VISIBLE_ROW):
-		for column_index in range(FIRST_TILE_COLUMN - 1, LAST_TILE_COLUMN + 2):
+	for row_index in range(0, LAST_VISIBLE_ROW + 1):
+		for column_index in range(FIRST_TILE_COLUMN - 2, LAST_TILE_COLUMN + 2):
 			set_cell(column_index, row_index, get_cell(column_index, row_index + 1))
 
 	var driller_current_pos = world_to_map(driller.global_position)
@@ -86,5 +86,15 @@ func dig():
 
 
 func create_new_row():
+	randomize()
+
 	for column_index in range(FIRST_TILE_COLUMN, LAST_TILE_COLUMN + 1):
 		set_cell(column_index, LAST_VISIBLE_ROW + 1, EARTH_ID)
+
+	# Randomly add arrows
+	if randf() < 0.4:
+		set_cell(FIRST_TILE_COLUMN - 1, LAST_VISIBLE_ROW + 1, LEFT_ARROW_ID)
+		set_cell(LAST_TILE_COLUMN + 1, LAST_VISIBLE_ROW + 1, RIGHT_ARROW_ID)
+	else:
+		set_cell(FIRST_TILE_COLUMN - 1, LAST_VISIBLE_ROW + 1, -1)
+		set_cell(LAST_TILE_COLUMN + 1, LAST_VISIBLE_ROW + 1, -1)
