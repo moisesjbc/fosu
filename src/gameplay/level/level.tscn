@@ -94,7 +94,6 @@ one_shot = true
 
 [node name="drill" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
-volume_db = -15.0
 bus = "sfx"
 
 [node name="powerup" type="AudioStreamPlayer" parent="."]
