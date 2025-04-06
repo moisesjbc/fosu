@@ -70,7 +70,6 @@ func _input(event):
 	if event is InputEventMouseButton and event.pressed == false:
 		var tilemap_pos = world_to_map(get_global_mouse_position())
 		var clicked_tile = get_cellv(tilemap_pos)
-		print("clicked_tile ", clicked_tile)
 
 		if clicked_tile == LEFT_ARROW_ID:
 			move_row_left(tilemap_pos.y)
@@ -137,17 +136,15 @@ func drill():
 		driller.activate_shield()
 	set_cellv(driller_current_pos, -1)
 	
-	print("drill_timeout ", drill_timeout)
 	$drill_timer.start(drill_timeout)
 
 
 func create_new_row():
 	var powerup_already_added = false
 	randomize()
-	print("special_cell_probability ", special_cell_probability)
 
 	# Randomly add dangers
-	var safe_column = FIRST_TILE_COLUMN + (randi() % (LAST_VISIBLE_ROW - FIRST_TILE_COLUMN))
+	var safe_column = FIRST_TILE_COLUMN + (randi() % (LAST_TILE_COLUMN - FIRST_TILE_COLUMN + 1))
 	for column_index in range(FIRST_TILE_COLUMN, LAST_TILE_COLUMN + 1):
 		var cell_value = EARTH_ID
 		if column_index != safe_column and randf() <= special_cell_probability:
