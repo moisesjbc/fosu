@@ -32,10 +32,10 @@ mouse_filter = 1
 
 [node name="pause_button" type="TextureButton" parent="gui"]
 pause_mode = 1
-margin_left = 4.0
-margin_top = 4.0
-margin_right = 132.0
-margin_bottom = 132.0
+margin_left = 485.0
+margin_top = 905.0
+margin_right = 613.0
+margin_bottom = 1033.0
 rect_scale = Vector2( 0.4, 0.4 )
 texture_normal = ExtResource( 9 )
 texture_pressed = ExtResource( 9 )
