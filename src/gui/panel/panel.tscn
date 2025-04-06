@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.054902, 0.313726, 0.443137, 1 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 0.054902, 0.313726, 0.443137, 1 )
+
+[node name="panel" type="Panel"]
+margin_top = 54.0
+margin_right = 520.0
+margin_bottom = 427.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 2 )

@@ -1,0 +1,80 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://fonts/Ubuntu-B.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://gui/button/button.tscn" type="PackedScene" id=2]
+[ext_resource path="res://gui/credits_menu/credits_menu.gd" type="Script" id=3]
+[ext_resource path="res://gui/panel/panel.tscn" type="PackedScene" id=4]
+
+[sub_resource type="DynamicFont" id=2]
+size = 30
+font_data = ExtResource( 1 )
+
+[node name="credits_menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+
+[node name="margin_container" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+
+[node name="vbox_container" type="VBoxContainer" parent="margin_container"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 530.0
+margin_bottom = 950.0
+custom_constants/separation = 20
+
+[node name="panel" parent="margin_container/vbox_container" instance=ExtResource( 4 )]
+margin_top = 0.0
+margin_bottom = 820.0
+
+[node name="credits" type="RichTextLabel" parent="margin_container/vbox_container/panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[center]
+[color=white]CREDITS[/color]
+
+[color=#FFB563]Game developed by[/color]
+[color=white][url=https://moisesjose.com]Moisés J. Bonilla Caraballo (moisesjbc)[/url][/color]
+
+[color=#FFB563]Third-party tools and fonts[/color]
+[color=white][url=https://godotengine.org/]Godot engine[/url]
+[url=https://www.gimp.org/]Gimp[/url]
+[url=http://www.drpetter.se/project_sfxr.html]sfxr[/url]
+[url=https://design.ubuntu.com/font/]Ubuntu font[/url]
+[url=https://coolors.co]coolors[/url][/color]
+
+[color=#FFB563]Game done for [url=https://ldjam.com/events/ludum-dare/57]Ludum Dare #57[/url]
+(Theme: \"Depths\")
+[/color][/center]"
+text = "
+CREDITS
+
+Game developed by
+Moisés J. Bonilla Caraballo (moisesjbc)
+
+Third-party tools and fonts
+Godot engine
+Gimp
+sfxr
+Ubuntu font
+coolors
+
+Game done for Ludum Dare #57
+(Theme: \"Depths\")
+"
+
+[node name="main_menu_button" parent="margin_container/vbox_container" instance=ExtResource( 2 )]
+text = "Main menu"
+
+[connection signal="meta_clicked" from="margin_container/vbox_container/panel/credits" to="." method="_on_credits_meta_clicked"]
+[connection signal="pressed" from="margin_container/vbox_container/main_menu_button" to="." method="_on_main_menu_button_pressed"]

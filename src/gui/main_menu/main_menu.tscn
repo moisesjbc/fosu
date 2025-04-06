@@ -26,11 +26,11 @@ margin_left = 10.0
 margin_top = 10.0
 margin_right = 530.0
 margin_bottom = 950.0
-custom_constants/separation = 10
+custom_constants/separation = 20
 
 [node name="title" type="Label" parent="margin_container/vbox_container"]
 margin_right = 520.0
-margin_bottom = 720.0
+margin_bottom = 580.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 1 )
@@ -39,12 +39,18 @@ align = 1
 valign = 1
 
 [node name="play_button" parent="margin_container/vbox_container" instance=ExtResource( 3 )]
-margin_top = 730.0
-margin_bottom = 830.0
+margin_top = 600.0
+margin_bottom = 700.0
 text = "Play"
+
+[node name="credits_button" parent="margin_container/vbox_container" instance=ExtResource( 3 )]
+margin_top = 720.0
+margin_bottom = 820.0
+text = "Credits"
 
 [node name="exit_button" parent="margin_container/vbox_container" instance=ExtResource( 3 )]
 text = "Exit game"
 
 [connection signal="pressed" from="margin_container/vbox_container/play_button" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="margin_container/vbox_container/credits_button" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="margin_container/vbox_container/exit_button" to="." method="_on_exit_button_pressed"]
