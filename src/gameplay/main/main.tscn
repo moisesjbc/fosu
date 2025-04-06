@@ -12,13 +12,16 @@
 script = ExtResource( 4 )
 
 [node name="level" parent="." instance=ExtResource( 1 )]
+position = Vector2( 13, 0 )
 
 [node name="driller" parent="." instance=ExtResource( 2 )]
-position = Vector2( 472, 190 )
+position = Vector2( 237, 93 )
+scale = Vector2( 0.5, 0.5 )
 
 [node name="gui" type="Node" parent="."]
 
 [node name="game_over" parent="gui" instance=ExtResource( 5 )]
+visible = false
 
 [node name="score" parent="gui" instance=ExtResource( 3 )]
 

@@ -13,7 +13,7 @@ const LAST_TILE_COLUMN = 6
 const FIRST_VISIBLE_ROW = 1
 const LAST_VISIBLE_ROW = 14
 
-const TILE_WIDTH = 128
+const TILE_WIDTH = 64
 const TILES_PER_ROW = 6
 
 var driller
