@@ -50,6 +50,7 @@ color = Color( 0, 0, 0, 0.784314 )
 
 [node name="explosion" type="AudioStreamPlayer" parent="explosion"]
 stream = ExtResource( 7 )
+bus = "sfx"
 
 [connection signal="bomb_drilled" from="level" to="." method="_on_level_bomb_drilled"]
 [connection signal="row_drilled" from="level" to="." method="_on_level_row_drilled"]

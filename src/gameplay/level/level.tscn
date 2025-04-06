@@ -96,12 +96,14 @@ one_shot = true
 [node name="drill" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 volume_db = -15.0
+bus = "sfx"
 
 [node name="arrow_pressed" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
-volume_db = -20.0
+bus = "sfx"
 
 [node name="powerup" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
+bus = "sfx"
 
 [connection signal="timeout" from="drill_timer" to="." method="_on_drill_timer_timeout"]
