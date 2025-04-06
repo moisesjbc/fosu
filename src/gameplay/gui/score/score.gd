@@ -14,5 +14,5 @@ func increase_score(score_delta):
 
 func set_score(score):
 	self.score = score
-	$margin_container/center_container/label.text = "Score: " + str(score)
+	$margin_container/center_container/label.text = "Drilled layers: " + str(score)
 
