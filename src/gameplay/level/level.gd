@@ -22,7 +22,7 @@ var drill_timeout
 var special_cell_probability
 var powerup_probability
 
-var add_arrows_on_new_row
+var highlighted_row = -1
 
 
 signal bomb_drilled
@@ -30,14 +30,36 @@ signal row_drilled
 
 
 func start(driller, drill_timeout, special_cell_probability, powerup_probability):
-	add_arrows_on_new_row = true
-	
 	self.driller = driller
 	self.special_cell_probability = special_cell_probability
 	self.drill_timeout = drill_timeout
 	self.powerup_probability = powerup_probability
 
 	$drill_timer.start(drill_timeout)
+
+
+func highlight_row(row_index):
+	highlighted_row = row_index
+
+	if row_index >= 0:
+		$row_highlight.visible = true
+		$row_highlight.position.y = (TILE_WIDTH / 2) + row_index * TILE_WIDTH
+	else:
+		$row_highlight.visible = false
+
+
+func _physics_process(delta):
+	var tilemap_pos = world_to_map(get_global_mouse_position())
+	if get_cell(0, tilemap_pos.y) == LEFT_ARROW_ID:
+		highlight_row(tilemap_pos.y)
+		
+		if Input.is_action_just_pressed("ui_left"):
+			move_row_left(highlighted_row)
+		elif Input.is_action_just_pressed("ui_right"):
+			move_row_right(highlighted_row)
+		
+	else:
+		highlight_row(-1)
 
 
 func _input(event):
@@ -50,6 +72,7 @@ func _input(event):
 			move_row_left(tilemap_pos.y)
 		elif clicked_tile == RIGHT_ARROW_ID:
 			move_row_right(tilemap_pos.y)
+
 
 func move_row_left(row_index):
 	$arrow_pressed.play()
@@ -94,7 +117,7 @@ func drill():
 	create_new_row()
 
 	for row_index in range(FIRST_VISIBLE_ROW, LAST_VISIBLE_ROW + 1):
-		for column_index in range(FIRST_TILE_COLUMN - 2, LAST_TILE_COLUMN + 2):
+		for column_index in range(FIRST_TILE_COLUMN, LAST_TILE_COLUMN + 1):
 			set_cell(column_index, row_index, get_cell(column_index, row_index + 1))
 
 	var driller_current_pos = world_to_map(driller.global_position)
@@ -130,15 +153,6 @@ func create_new_row():
 			else:
 				cell_value = BOMB_ID
 		set_cell(column_index, LAST_VISIBLE_ROW + 1, cell_value)
-
-	# Add arrows (if applicable)
-	if add_arrows_on_new_row:
-		set_cell(FIRST_TILE_COLUMN - 1, LAST_VISIBLE_ROW + 1, LEFT_ARROW_ID)
-		set_cell(LAST_TILE_COLUMN + 1, LAST_VISIBLE_ROW + 1, RIGHT_ARROW_ID)
-	else:
-		set_cell(FIRST_TILE_COLUMN - 1, LAST_VISIBLE_ROW + 1, -1)
-		set_cell(LAST_TILE_COLUMN + 1, LAST_VISIBLE_ROW + 1, -1)
-	add_arrows_on_new_row = not add_arrows_on_new_row
 
 
 func _on_drill_timer_timeout():
