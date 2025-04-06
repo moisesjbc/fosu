@@ -25,6 +25,7 @@ position = Vector2( 1.5, 10 )
 shape = SubResource( 1 )
 
 [node name="shield" type="Sprite" parent="."]
+visible = false
 position = Vector2( 1, 0 )
 scale = Vector2( 1.1, 1.1 )
 texture = ExtResource( 3 )
