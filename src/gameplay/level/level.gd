@@ -23,10 +23,13 @@ var special_cell_probability
 var powerup_probability
 
 var highlighted_row = -1
-
+var on_mobile_platform = false
 
 signal bomb_drilled
 signal row_drilled
+
+func _ready():
+	on_mobile_platform = JavaScript.eval("/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)", true)
 
 
 func start(driller, drill_timeout, special_cell_probability, powerup_probability):
@@ -49,17 +52,18 @@ func highlight_row(row_index):
 
 
 func _physics_process(delta):
-	var tilemap_pos = world_to_map(get_global_mouse_position())
-	if get_cell(0, tilemap_pos.y) == LEFT_ARROW_ID:
-		highlight_row(tilemap_pos.y)
-		
-		if Input.is_action_just_pressed("ui_left"):
-			move_row_left(highlighted_row)
-		elif Input.is_action_just_pressed("ui_right"):
-			move_row_right(highlighted_row)
-		
-	else:
-		highlight_row(-1)
+	if not on_mobile_platform:
+		var tilemap_pos = world_to_map(get_global_mouse_position())
+		if get_cell(0, tilemap_pos.y) == LEFT_ARROW_ID:
+			highlight_row(tilemap_pos.y)
+			
+			if Input.is_action_just_pressed("ui_left"):
+				move_row_left(highlighted_row)
+			elif Input.is_action_just_pressed("ui_right"):
+				move_row_right(highlighted_row)
+			
+		else:
+			highlight_row(-1)
 
 
 func _input(event):
@@ -75,7 +79,7 @@ func _input(event):
 
 
 func move_row_left(row_index):
-	$arrow_pressed.play()
+	get_node("/root/global_sound_system").play_button_pressed_sound()
 	var first_tile = get_cell(FIRST_TILE_COLUMN, row_index)
 
 	for column_index in range(FIRST_TILE_COLUMN, LAST_TILE_COLUMN):
@@ -93,7 +97,7 @@ func move_row_left(row_index):
 
 
 func move_row_right(row_index):
-	$arrow_pressed.play()
+	get_node("/root/global_sound_system").play_button_pressed_sound()
 	var last_tile = get_cell(LAST_TILE_COLUMN, row_index)
 
 	var column_index = LAST_TILE_COLUMN
