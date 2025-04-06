@@ -31,3 +31,7 @@ func _on_difficulty_timer_timeout():
 
 func _on_level_row_drilled():
 	$gui/score.increase_score(1)
+
+
+func _on_pause_button_pressed():
+	$gui/pause_menu.start()
